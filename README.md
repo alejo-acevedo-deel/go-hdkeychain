@@ -1,49 +1,59 @@
-btcutil
-=======
+hdkeychain
+==========
 
-[![Build Status](https://github.com/btcsuite/btcutil/workflows/Build%20and%20Test/badge.svg)](https://github.com/btcsuite/btcutil/actions)
-[![ISC License](https://img.shields.io/badge/license-ISC-blue.svg)](http://copyfree.org)
-[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg)](https://godoc.org/github.com/btcsuite/btcutil)
+[![Build Status](http://img.shields.io/travis/btcsuite/btcutil.svg)](https://travis-ci.org/btcsuite/btcutil)
+[![ISC License](http://img.shields.io/badge/license-ISC-blue.svg)](http://copyfree.org)
+[![GoDoc](http://img.shields.io/badge/godoc-reference-blue.svg)](http://godoc.org/github.com/btcsuite/btcutil/hdkeychain)
 
-Package btcutil provides bitcoin-specific convenience functions and types.
+Package hdkeychain provides an API for bitcoin hierarchical deterministic
+extended keys (BIP0032).
+
 A comprehensive suite of tests is provided to ensure proper functionality.  See
 `test_coverage.txt` for the gocov coverage report.  Alternatively, if you are
 running a POSIX OS, you can run the `cov_report.sh` script for a real-time
 report.
 
-This package was developed for btcd, an alternative full-node implementation of
-bitcoin which is under active development by Conformal.  Although it was
-primarily written for btcd, this package has intentionally been designed so it
-can be used as a standalone package for any projects needing the functionality
-provided.
+## Feature Overview
+
+- Full BIP0032 implementation
+- Single type for private and public extended keys
+- Convenient cryptograpically secure seed generation
+- Simple creation of master nodes
+- Support for multi-layer derivation
+- Easy serialization and deserialization for both private and public extended
+  keys
+- Support for custom networks by registering them with chaincfg
+- Obtaining the underlying EC pubkeys, EC privkeys, and associated bitcoin
+  addresses ties in seamlessly with existing btcec and btcutil types which
+  provide powerful tools for working with them to do things like sign
+  transations and generate payment scripts
+- Uses the btcec package which is highly optimized for secp256k1
+- Code examples including:
+  - Generating a cryptographically secure random seed and deriving a
+    master node from it
+  - Default HD wallet layout as described by BIP0032
+  - Audits use case as described by BIP0032
+- Comprehensive test coverage including the BIP0032 test vectors
+- Benchmarks
 
 ## Installation and Updating
 
 ```bash
-$ go get -u github.com/btcsuite/btcutil
+$ go get -u github.com/btcsuite/btcutil/hdkeychain
 ```
 
-## GPG Verification Key
+## Examples
 
-All official release tags are signed by Conformal so users can ensure the code
-has not been tampered with and is coming from the btcsuite developers.  To
-verify the signature perform the following:
-
-- Download the public key from the Conformal website at
-  https://opensource.conformal.com/GIT-GPG-KEY-conformal.txt
-
-- Import the public key into your GPG keyring:
-  ```bash
-  gpg --import GIT-GPG-KEY-conformal.txt
-  ```
-
-- Verify the release tag with the following command where `TAG_NAME` is a
-  placeholder for the specific tag:
-  ```bash
-  git tag -v TAG_NAME
-  ```
+* [NewMaster Example](http://godoc.org/github.com/btcsuite/btcutil/hdkeychain#example-NewMaster)  
+  Demonstrates how to generate a cryptographically random seed then use it to
+  create a new master node (extended key).
+* [Default Wallet Layout Example](http://godoc.org/github.com/btcsuite/btcutil/hdkeychain#example-package--DefaultWalletLayout)  
+  Demonstrates the default hierarchical deterministic wallet layout as described
+  in BIP0032.
+* [Audits Use Case Example](http://godoc.org/github.com/btcsuite/btcutil/hdkeychain#example-package--Audits)  
+  Demonstrates the audits use case in BIP0032.
 
 ## License
 
-Package btcutil is licensed under the [copyfree](http://copyfree.org) ISC
+Package hdkeychain is licensed under the [copyfree](http://copyfree.org) ISC
 License.
